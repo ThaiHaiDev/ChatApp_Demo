@@ -3,23 +3,50 @@ import './ChatWindown.scss';
 import messageData from '../../mockdata/messageData';
 import { MessageData } from '../../models/message';
 
-import sortMessageWithTime from '../../utils/sortMessageWithTime'
+import sortMessageWithTime from '../../utils/sortMessageWithTime';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import messSlice from '../../pages/MessagePage/messSlice';
 
 const ChatWindown = () => {
-    const params = useParams();
-    const idMess = params.idMess !== undefined ? params.idMess : 0
+    const userSigning = useSelector((state: RootState) => state.user);
+    const { register, reset, handleSubmit } = useForm<any>();
 
-    const dataMessFilter = messageData.filter((mess) => { return mess.idUserReceive === Number(idMess) ||  mess.idUserReceive === 1})
-    // === 1 là id của user đang signin
-    
-    sortMessageWithTime(dataMessFilter)
+    const dispatch = useDispatch();
+
+    const params = useParams();
+    const idMess = params.idMess !== undefined ? params.idMess : 0;
+
+    const onSubmit: SubmitHandler<any>  = async (data: any) => {
+        const timeSend = new Date();
+        const newMess = {
+            id: messageData.length + 1,
+            idUserSend: userSigning.current?.id,
+            idUserReceive: Number(idMess),
+            content: data.content,
+            timeSend: timeSend.toString()
+        }
+        await messageData.push(newMess)
+        await dispatch(messSlice.actions.addMess(messageData));
+        reset();
+    };
+
+    const dataMessFilter = messageData.filter((mess) => {
+        return (
+            (mess.idUserReceive === Number(idMess) && mess.idUserSend === userSigning.current.id) ||
+            (mess.idUserSend === Number(idMess) && mess.idUserReceive === userSigning.current.id)
+        );
+    });
+
+    sortMessageWithTime(dataMessFilter);
 
     return (
         <div className="chatwindown">
             <div className="content">
                 {dataMessFilter?.map((mess: MessageData, index: number) => {
-                    if (mess?.idUserReceive === 2) {
+                    if (mess?.idUserSend === Number(idMess)) {
                         // Bằng với id của người đc chọn để chat
                         return (
                             <div className="chat-content__item-left" key={index}>
@@ -33,7 +60,7 @@ const ChatWindown = () => {
                                 <p className="message__content">{mess?.content}</p>
                             </div>
                         );
-                    } else if (mess?.idUserReceive === 1) {
+                    } else if (mess?.idUserSend === userSigning.current.id) {
                         // Bằng với id của người đang signin
                         return (
                             <div className="chat-content__item-right" key={index}>
@@ -52,16 +79,18 @@ const ChatWindown = () => {
                 })}
             </div>
 
-            <div className="input-chat">
-                <input className="input-mess" placeholder="Type a message" />
-                <div className="btn-send">
-                    <img
-                        src="https://img.icons8.com/fluency/24/null/filled-sent.png"
-                        alt="icon-send"
-                        className="icon-send"
-                    />
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="input-chat">
+                    <input type="text" className="input-mess" placeholder="Type a message" {...register('content')} />
+                    <div className="btn-send">
+                        <img
+                            src="https://img.icons8.com/fluency/24/null/filled-sent.png"
+                            alt="icon-send"
+                            className="icon-send"
+                        />
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     );
 };

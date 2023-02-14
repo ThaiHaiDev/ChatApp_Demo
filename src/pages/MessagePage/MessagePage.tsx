@@ -9,7 +9,7 @@ const MessagePage = () => {
     return (
         <div className="message__page">
             <div className="row" style={{ height: '100%' }}>
-                <div className="col l-2 m-0 c-0" style={{ background: 'red' }}>
+                <div className="col l-2 m-0 c-0" style={{ background: '#64b5f6' }}>
                     <Sidebar />
                 </div>
                 <div className="col l-10 m-12 c-12" style={{ background: '#f5f5f5' }}>

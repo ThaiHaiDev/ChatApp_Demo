@@ -11,7 +11,6 @@ const sortMessageWithTime = (data : MessageData[]) => {
               }
         }
     }
-    console.log(data)
 }
 
 export default sortMessageWithTime
