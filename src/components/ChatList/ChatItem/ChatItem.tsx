@@ -1,13 +1,18 @@
+import { User } from '../../../models/user';
 import './ChatItem.scss';
 
-const ChatItem = () => {
+interface UserDataProp {
+    data?: User
+}
+
+const ChatItem = (props : UserDataProp) => {
     return (
         <div className="chat-item">
             <div className='avatar-user__chat'>
-                <img src='https://149441781.v2.pressablecdn.com/wp-content/uploads/2022/04/FRXvaJKXIAMo3YF.jpg' alt=''/>
+                <img src={props.data?.avatar} alt='avatar'/>
             </div>
             <div className='info__chat'>
-                <p className='name-user__chat'>Thai Hai</p>
+                <p className='name-user__chat'>{props.data?.fullName}</p>
                 <p className='first-content__chat'>Hello</p>
             </div>
         </div>

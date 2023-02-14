@@ -1,10 +1,10 @@
 import React from 'react';
-import MessagePage from './pages/MessagePage/MessagePage';
+import SetupRouter from './routes';
 
 function App() {
     return (
         <div className="App">
-            <MessagePage />
+            <SetupRouter />
         </div>
     )
 }

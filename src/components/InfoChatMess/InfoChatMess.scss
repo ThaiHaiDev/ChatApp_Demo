@@ -1,0 +1,23 @@
+.infochatmess {
+    width: 100%;
+    background-color: white;
+    height: 50px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+
+    .user__mess {
+        .name-user__mess {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+    
+        .desc-user__mess {
+            margin: 0;
+            font-size: 14px;
+        }
+    }
+
+   
+}

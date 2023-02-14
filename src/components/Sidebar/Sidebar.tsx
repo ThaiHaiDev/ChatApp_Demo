@@ -19,11 +19,11 @@ const Sidebar = () => {
                 </div>
                 <br />
                 <hr />
-                <Link to="/account/edit-account" className="link-user">
-                    Thông tin cá nhân
+                <Link to="/signin" className="link-user">
+                    Đăng nhập
                 </Link>
-                <Link to="/account/active-account" className="link-user">
-                    Kích hoạt tài khoản
+                <Link to="/" className="link-user">
+                    Trò chuyện
                 </Link>
             </div>
         </div>
