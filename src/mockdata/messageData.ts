@@ -19,7 +19,7 @@ const messageData : MessageData[] = [
         id: 1,
         idUserSend: 2,
         idUserReceive: 1,
-        content: 'Hello Nhe',
+        content: 'Hello Nhe Nhe',
         timeSend: 'Tue, 14 Feb 2023 13:40:05 GMT',
     }
 ]

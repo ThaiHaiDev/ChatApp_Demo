@@ -10,7 +10,7 @@ const ChatList = () => {
         <div className="chat-list">
             {UserData?.map((user: User, index: number) => (
                 <div key={index}>
-                    <ChatItem data={user}/>
+                    <ChatItem data={user} />
                 </div>
             ))}
         </div>

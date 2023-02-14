@@ -15,6 +15,14 @@ const SetupRouter = () => {
                     </React.Suspense>
                 }
             />
+             <Route
+                path="/:idMess"
+                element={
+                    <React.Suspense>
+                        <MessagePage />
+                    </React.Suspense>
+                }
+            />
             <Route
                 path="/signin"
                 element={

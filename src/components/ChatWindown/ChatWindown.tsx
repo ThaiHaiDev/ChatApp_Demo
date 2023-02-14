@@ -4,20 +4,21 @@ import messageData from '../../mockdata/messageData';
 import { MessageData } from '../../models/message';
 
 import sortMessageWithTime from '../../utils/sortMessageWithTime'
+import { useParams } from 'react-router-dom';
 
 const ChatWindown = () => {
-    // if (messageData[0].timeSend.getTime() > messageData[1].timeSend.getTime()) {
-    //     console.log('hehe')
-    // } else {
-    //     console.log('hoho')
-    // }
-    sortMessageWithTime(messageData)
-    console.log(messageData[0].timeSend < messageData[1].timeSend)
-    console.log(messageData[1].timeSend)
+    const params = useParams();
+    const idMess = params.idMess !== undefined ? params.idMess : 0
+
+    const dataMessFilter = messageData.filter((mess) => { return mess.idUserReceive === Number(idMess) ||  mess.idUserReceive === 1})
+    // === 1 là id của user đang signin
+    
+    sortMessageWithTime(dataMessFilter)
+
     return (
         <div className="chatwindown">
             <div className="content">
-                {messageData?.map((mess: MessageData, index: number) => {
+                {dataMessFilter?.map((mess: MessageData, index: number) => {
                     if (mess?.idUserReceive === 2) {
                         // Bằng với id của người đc chọn để chat
                         return (
@@ -49,27 +50,6 @@ const ChatWindown = () => {
                     }
                     return <></>;
                 })}
-                {/* <div className="chat-content__item-left">
-                    <div className="avatar-user__content">
-                        <img
-                            src="https://149441781.v2.pressablecdn.com/wp-content/uploads/2022/04/FRXvaJKXIAMo3YF.jpg"
-                            alt=""
-                            className="img-avatar__content"
-                        />
-                    </div>
-                    <p className="message__content">Xin chào bạn, hôm nay bạn thế nào</p>
-                </div>
-
-                <div className="chat-content__item-right">
-                    <p className="message__content">Xin chào bạn, hôm nay bạn thế nào</p>
-                    <div className="avatar-user__content">
-                        <img
-                            src="https://149441781.v2.pressablecdn.com/wp-content/uploads/2022/04/FRXvaJKXIAMo3YF.jpg"
-                            alt=""
-                            className="img-avatar__content"
-                        />
-                    </div>
-                </div> */}
             </div>
 
             <div className="input-chat">
