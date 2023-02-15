@@ -4,7 +4,7 @@ import { RootState } from '../../redux/store';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import messageData from '../../mockdata/messageData';
-import { MessageData } from '../../models/message';
+import { MessageData, MessageDataRequest } from '../../models/message';
 import messageApi from '../../services/messageApi';
 import sortMessageWithTime from '../../utils/sortMessageWithTime';
 
@@ -18,16 +18,20 @@ interface PropsData {
     handleSetListMessData: (value : MessageData[]) => void 
 }
 
+interface dataForm {
+    content: string
+}
+
 const ChatWindown = (props : PropsData) => {
     const userSigning = useSelector((state: RootState) => state.user);
-    const { register, reset, handleSubmit } = useForm<any>();
+    const { register, reset, handleSubmit } = useForm<MessageDataRequest>();
 
     const params = useParams();
     const idMess = params.idMess !== undefined ? params.idMess : 0;
 
     const ref = useChatScroll(props?.listMessData)
 
-    const onSubmit: SubmitHandler<any>  =  (data: any) => {
+    const onSubmit: SubmitHandler<MessageDataRequest>  =  (data: dataForm) => {
         const timeSend = new Date();
         const newMess = {
             id: messageData.length + 1,
@@ -93,7 +97,7 @@ const ChatWindown = (props : PropsData) => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="input-chat">
                     <input type="text" className="input-mess" placeholder="Type a message" {...register('content')} />
-                    <div className="btn-send">
+                    <div className="btn-send" onClick={handleSubmit(onSubmit)}>
                         <img
                             src="https://img.icons8.com/fluency/24/null/filled-sent.png"
                             alt="icon-send"

@@ -6,6 +6,12 @@ import './SigninPage.scss';
 import UserData from '../../mockdata/userData';
 import { useDispatch } from 'react-redux';
 import userSlice from './userSlice';
+import { User } from '../../models/user';
+
+interface UserDataSubmit {
+    email: string,
+    password: string
+}
 
 const SigninPage = () => {
     const {
@@ -13,11 +19,11 @@ const SigninPage = () => {
         reset,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm<any>();
+    } = useForm<User>();
 
     const dispatch = useDispatch();
 
-    const onSubmit: SubmitHandler<any> = async (data: any) => {
+    const onSubmit: SubmitHandler<UserDataSubmit> = async (data: UserDataSubmit) => {
         const userSignin = UserData.find((user) => {
             return user.email === data.email;
         });
