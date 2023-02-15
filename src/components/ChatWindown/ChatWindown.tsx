@@ -5,21 +5,27 @@ import { MessageData } from '../../models/message';
 
 import sortMessageWithTime from '../../utils/sortMessageWithTime';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import messSlice from '../../pages/MessagePage/messSlice';
+import { useEffect, useState } from 'react';
+import messageApi from '../../services/messageApi';
 
 const ChatWindown = () => {
     const userSigning = useSelector((state: RootState) => state.user);
     const { register, reset, handleSubmit } = useForm<any>();
-
-    const dispatch = useDispatch();
+    const [listMessData, setListMessData] = useState<MessageData[]>([])
 
     const params = useParams();
     const idMess = params.idMess !== undefined ? params.idMess : 0;
 
-    const onSubmit: SubmitHandler<any>  = async (data: any) => {
+    useEffect(() => {
+        messageApi.getAllMessage().then((data) => {
+            setListMessData(data)
+        })
+    }, [])
+
+    const onSubmit: SubmitHandler<any>  =  (data: any) => {
         const timeSend = new Date();
         const newMess = {
             id: messageData.length + 1,
@@ -28,12 +34,13 @@ const ChatWindown = () => {
             content: data.content,
             timeSend: timeSend.toString()
         }
-        await messageData.push(newMess)
-        await dispatch(messSlice.actions.addMess(messageData));
+        messageApi.addMess(newMess).then((data) => {
+            setListMessData([...listMessData, data])
+        })
         reset();
     };
 
-    const dataMessFilter = messageData.filter((mess) => {
+    const dataMessFilter = listMessData.filter((mess:any) => {
         return (
             (mess.idUserReceive === Number(idMess) && mess.idUserSend === userSigning.current.id) ||
             (mess.idUserSend === Number(idMess) && mess.idUserReceive === userSigning.current.id)
