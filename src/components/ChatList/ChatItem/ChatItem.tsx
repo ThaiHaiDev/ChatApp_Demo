@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { User } from '../../../models/user';
 import './ChatItem.scss';
 
@@ -8,13 +8,15 @@ interface UserDataProp {
 
 const ChatItem = (props : UserDataProp) => {
     const navigate = useNavigate();
+    const params = useParams();
+    const idActive = Number(params?.idMess);
 
     const handleLinkToMessDetail = (idMess: number | undefined) => {
         navigate(`/${idMess}`);
     };
 
     return (
-        <div className="chat-item" onClick={() => handleLinkToMessDetail(props.data?.id)}>
+        <div className={`${idActive !== props.data?.id ? 'chat-item' : 'chat-item active'}`} onClick={() => handleLinkToMessDetail(props.data?.id)}>
             <div className='avatar-user__chat'>
                 <img src={props.data?.avatar} alt='avatar'/>
             </div>
