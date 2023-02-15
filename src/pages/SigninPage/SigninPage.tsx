@@ -22,9 +22,15 @@ const SigninPage = () => {
             return user.email === data.email;
         });
         if (userSignin !== undefined) {
-            await dispatch(userSlice.actions.signin(userSignin));
-            reset();
-            document.location = '/';
+            if (userSignin.password === data.password) {
+                await dispatch(userSlice.actions.signin(userSignin));
+                reset();
+                document.location = '/';
+            } else {
+                alert('Mật khẩu của bạn không trùng khớp')
+            }
+        } else {
+            alert('Tài khoản không chính xác')
         }
     };
 
