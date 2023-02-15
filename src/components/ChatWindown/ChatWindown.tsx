@@ -8,9 +8,10 @@ import { MessageData } from '../../models/message';
 import messageApi from '../../services/messageApi';
 import sortMessageWithTime from '../../utils/sortMessageWithTime';
 
-import './ChatWindown.scss';
 import moment from 'moment';
 import useChatScroll from '../../hooks/useChatScroll';
+
+import './ChatWindown.scss';
 
 interface PropsData {
     listMessData: MessageData[],

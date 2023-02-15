@@ -31,7 +31,7 @@ const ChatItem = (props : UserDataProp) => {
                 </div>
             </div>
             <div className='time__chat'>
-                <p className='time-show__chat'>{moment(props.lastMess?.timeSend).startOf('hour').fromNow()}</p>
+                <p className='time-show__chat'>{moment(props.lastMess?.timeSend).format("MMM Do YY")}</p>
             </div>
         </div>
     )
