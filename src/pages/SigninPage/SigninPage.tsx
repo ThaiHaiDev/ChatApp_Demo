@@ -35,14 +35,14 @@ const SigninPage = () => {
                     <Sidebar />
                 </div>
                 <div className="col l-10 m-12 c-12" style={{ background: '#f5f5f5' }}>
-                    <h1 className='title__page'>Signin</h1>
+                    <h1 className="title__page">Signin</h1>
                     <div className="signin__form">
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <label className='label-signin'>
+                            <label className="label-signin">
                                 <input
                                     type="email"
                                     placeholder="Email"
-                                    className='signin__form-input'
+                                    className="signin__form-input"
                                     {...register('email', {
                                         required: 'Email được yêu cầu',
                                         pattern: {
@@ -56,10 +56,10 @@ const SigninPage = () => {
                                 )}
                             </label>
 
-                            <label className='label-signin'>
+                            <label className="label-signin">
                                 <input
                                     className="signin__form-input"
-                                    type='password' 
+                                    type="password"
                                     placeholder="Enter password"
                                     {...register('password', {
                                         required: 'Mật khẩu được yêu cầu',
@@ -69,15 +69,17 @@ const SigninPage = () => {
                                         },
                                     })}
                                 />
-                                {errors.password && (
-                                    <p className="message_error">{`${errors.password?.message}`}</p>
-                                )}
+                                {errors.password && <p className="message_error">{`${errors.password?.message}`}</p>}
                             </label>
-                            <button type="submit" disabled={isSubmitting} className='btn-signin'>
+                            <button type="submit" disabled={isSubmitting} className="btn-signin">
                                 Đăng nhập
                             </button>
                         </form>
-                        <img src='https://png.pngtree.com/png-vector/20221214/ourmid/pngtree-phone-chat-apps-png-image_6523592.png' alt='' className="bg-img"/>
+                        <img
+                            src="https://png.pngtree.com/png-vector/20221214/ourmid/pngtree-phone-chat-apps-png-image_6523592.png"
+                            alt=""
+                            className="bg-img"
+                        />
                     </div>
                 </div>
             </div>

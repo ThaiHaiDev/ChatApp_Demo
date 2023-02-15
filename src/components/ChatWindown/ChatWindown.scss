@@ -31,6 +31,13 @@
                 background-color: #e0e0e0;
                 border-radius: 15px;
             }
+
+            .message__timeSend {
+                margin: 0;
+                margin-left: 10px;
+                font-size: 14px;
+                color: #757575;
+            }
         }
 
         .chat-content__item-right {
@@ -53,6 +60,16 @@
                 background-color: #448aff;
                 border-radius: 15px;
                 color: white;
+                max-width: 70%;
+                height: auto;
+                word-break: break-word;  // Xuống dòng nếu text dài
+            }
+
+            .message__timeSend {
+                margin: 0;
+                margin-right: 10px;
+                font-size: 14px;
+                color: #757575;
             }
         }
     }

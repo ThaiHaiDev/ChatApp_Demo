@@ -1,21 +1,30 @@
-import './ChatWindown.scss';
-
-import messageData from '../../mockdata/messageData';
-import { MessageData } from '../../models/message';
-
-import sortMessageWithTime from '../../utils/sortMessageWithTime';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import messageApi from '../../services/messageApi';
 
-const ChatWindown = (props : any) => {
+import messageData from '../../mockdata/messageData';
+import { MessageData } from '../../models/message';
+import messageApi from '../../services/messageApi';
+import sortMessageWithTime from '../../utils/sortMessageWithTime';
+
+import './ChatWindown.scss';
+import moment from 'moment';
+import useChatScroll from '../../hooks/useChatScroll';
+
+interface PropsData {
+    listMessData: MessageData[],
+    handleSetListMessData: (value : MessageData[]) => void 
+}
+
+const ChatWindown = (props : PropsData) => {
     const userSigning = useSelector((state: RootState) => state.user);
     const { register, reset, handleSubmit } = useForm<any>();
 
     const params = useParams();
     const idMess = params.idMess !== undefined ? params.idMess : 0;
+
+    const ref = useChatScroll(props?.listMessData)
 
     const onSubmit: SubmitHandler<any>  =  (data: any) => {
         const timeSend = new Date();
@@ -27,7 +36,7 @@ const ChatWindown = (props : any) => {
             timeSend: timeSend.toString()
         }
         messageApi.addMess(newMess).then((data) => {
-            props.setListMessData([...props?.listMessData, data])
+            props?.handleSetListMessData([...props?.listMessData, data])
         })
         reset();
     };
@@ -43,10 +52,10 @@ const ChatWindown = (props : any) => {
 
     return (
         <div className="chatwindown">
-            <div className="content">
+            <div className="content" ref={ref}>
                 {dataMessFilter?.map((mess: MessageData, index: number) => {
                     if (mess?.idUserSend === Number(idMess)) {
-                        // Bằng với id của người đc chọn để chat
+                        // Equal to the id of the person selected to chat
                         return (
                             <div className="chat-content__item-left" key={index}>
                                 <div className="avatar-user__content">
@@ -57,12 +66,14 @@ const ChatWindown = (props : any) => {
                                     />
                                 </div>
                                 <p className="message__content">{mess?.content}</p>
+                                <p className='message__timeSend'>{moment(mess?.timeSend).format('h:mm a')}</p>
                             </div>
                         );
                     } else if (mess?.idUserSend === userSigning.current.id) {
-                        // Bằng với id của người đang signin
+                        // Equal to the id of the person who is signing in
                         return (
                             <div className="chat-content__item-right" key={index}>
+                                <p className='message__timeSend'>{moment(mess?.timeSend).format('h:mm a')}</p>
                                 <p className="message__content">{mess?.content}</p>
                                 <div className="avatar-user__content">
                                     <img

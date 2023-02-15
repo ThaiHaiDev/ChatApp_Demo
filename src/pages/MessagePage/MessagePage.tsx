@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+
 import ChatList from '../../components/ChatList/ChatList';
 import ChatWindown from '../../components/ChatWindown/ChatWindown';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
+
 import { MessageData } from '../../models/message';
 import messageApi from '../../services/messageApi';
 
@@ -17,6 +19,10 @@ const MessagePage = () => {
         })
     }, [])
 
+    const handleSetListMessData = (value : MessageData[]) => {
+        setListMessData(value)
+    }
+
     return (
         <div className="message__page">
             <div className="row" style={{ height: '100%' }}>
@@ -30,7 +36,7 @@ const MessagePage = () => {
                             <ChatList listMessData={listMessData} />
                         </div>
                         <div className="col l-8 m-7">
-                            <ChatWindown listMessData={listMessData} setListMessData={setListMessData}/>
+                            <ChatWindown listMessData={listMessData} handleSetListMessData={handleSetListMessData}/>
                         </div>
                     </div>
                 </div>

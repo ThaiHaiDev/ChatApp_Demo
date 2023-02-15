@@ -9,8 +9,13 @@ import { RootState } from '../../redux/store';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import getLastMessage from '../../utils/getLastMessage';
+import { MessageData } from '../../models/message';
 
-const ChatList = (props : any) => {
+interface PropsData {
+    listMessData: MessageData[]
+}
+
+const ChatList = (props : PropsData) => {
     const userSigning = useSelector((state: RootState) => state.user);
     
     const dataUserFilter = UserData.filter(user => { return user.id !== userSigning.current.id})

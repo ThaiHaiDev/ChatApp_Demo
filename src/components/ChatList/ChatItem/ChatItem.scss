@@ -6,28 +6,44 @@
     margin-bottom: 10px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     cursor: pointer;
 
-    .avatar-user__chat {
-        margin: 0 15px;
-        img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+    .left__chat {
+        display: flex;
+        align-items: center;
+
+        .avatar-user__chat {
+            margin: 0 15px;
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+            }
+        }
+    
+        .info__chat {
+            .name-user__chat {
+                margin: 0;
+                font-weight: 600;
+                font-size: 16px;
+            }
+    
+            .first-content__chat {
+                margin: 0;
+                font-size: 14px;
+                color: var(--text-color);
+            }
         }
     }
 
-    .info__chat {
-        .name-user__chat {
-            margin: 0;
-            font-weight: 600;
-            font-size: 16px;
-        }
+    .time__chat {
+        margin-right: 15px;
 
-        .first-content__chat {
+        .time-show__chat { 
             margin: 0;
             font-size: 14px;
-            color: var(--text-color);
+            color: #757575;
         }
     }
 }

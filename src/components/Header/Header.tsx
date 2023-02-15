@@ -7,10 +7,10 @@ const Header = () => {
         <div className="header">
             <h1>Chat</h1>
             <div className="row">
-                <div className="col l-4">
+                <div className="col l-4 m-4 c-4">
                     <Search />
                 </div>
-                <div className="col l-8">
+                <div className="col l-8 m-7 c-8">
                     <InfoChatMess />
                 </div>
             </div>
