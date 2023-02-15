@@ -1,23 +1,17 @@
 .signin__page {
     height: 100vh;
     
-
     .title__page {
         margin-left: 40px;
         margin-top: 40px;
+        margin-bottom: 60px;
     }
 
-    // .test {
-    //     background-image: url('https://www.mirrorfly.com/blog/wp-content/uploads/2019/01/14.jpg') !important;
-    //     background-repeat: no-repeat !important;
-    //     background-position: center !important;
-    // }
     .signin__form {
-        position: relative;
         overflow: hidden;
         width: 600px;
         max-width: 100%;
-        margin: auto;
+        margin-left: 10%;
         height: calc(100vh - 300px);
         display: flex;
         align-items: center;
@@ -48,5 +42,9 @@
         .btn-signin:hover {
             background-color: #4caf50;
         }
+    }
+    .bg-img {
+        position: absolute;
+        right: 5%;
     }
 }

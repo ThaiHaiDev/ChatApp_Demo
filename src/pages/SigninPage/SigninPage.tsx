@@ -34,7 +34,7 @@ const SigninPage = () => {
                 <div className="col l-2 m-0 c-0" style={{ background: '#64b5f6' }}>
                     <Sidebar />
                 </div>
-                <div className="col l-10 m-12 c-12 test" style={{ background: '#f5f5f5' }}>
+                <div className="col l-10 m-12 c-12" style={{ background: '#f5f5f5' }}>
                     <h1 className='title__page'>Signin</h1>
                     <div className="signin__form">
                         <form onSubmit={handleSubmit(onSubmit)}>
@@ -77,7 +77,7 @@ const SigninPage = () => {
                                 Đăng nhập
                             </button>
                         </form>
-                        <img src='https://png.pngtree.com/png-vector/20221214/ourmid/pngtree-phone-chat-apps-png-image_6523592.png' alt='' style={{position: 'absolute'}}/>
+                        <img src='https://png.pngtree.com/png-vector/20221214/ourmid/pngtree-phone-chat-apps-png-image_6523592.png' alt='' className="bg-img"/>
                     </div>
                 </div>
             </div>

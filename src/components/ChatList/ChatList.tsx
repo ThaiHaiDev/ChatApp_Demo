@@ -8,8 +8,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import getLastMessage from '../../utils/getLastMessage';
 
-const ChatList = () => {
+const ChatList = (props : any) => {
     const userSigning = useSelector((state: RootState) => state.user);
     
     const dataUserFilter = UserData.filter(user => { return user.id !== userSigning.current.id})
@@ -24,11 +25,14 @@ const ChatList = () => {
 
     return (
         <div className="chat-list">
-            {dataUserFilter?.map((user: User, index: number) => (
-                <div key={index}>
-                    <ChatItem data={user} />
-                </div>
-            ))}
+            {dataUserFilter?.map((user: User, index: number) => {
+                const lastMess = getLastMessage(props?.listMessData, user.id, userSigning.current.id)
+                return (
+                    <div key={index}>
+                        <ChatItem data={user} lastMess={lastMess}/>
+                    </div>
+                )
+            })}
         </div>
     );
 };

@@ -8,22 +8,14 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
 import messageApi from '../../services/messageApi';
 
-const ChatWindown = () => {
+const ChatWindown = (props : any) => {
     const userSigning = useSelector((state: RootState) => state.user);
     const { register, reset, handleSubmit } = useForm<any>();
-    const [listMessData, setListMessData] = useState<MessageData[]>([])
 
     const params = useParams();
     const idMess = params.idMess !== undefined ? params.idMess : 0;
-
-    useEffect(() => {
-        messageApi.getAllMessage().then((data) => {
-            setListMessData(data)
-        })
-    }, [])
 
     const onSubmit: SubmitHandler<any>  =  (data: any) => {
         const timeSend = new Date();
@@ -35,12 +27,12 @@ const ChatWindown = () => {
             timeSend: timeSend.toString()
         }
         messageApi.addMess(newMess).then((data) => {
-            setListMessData([...listMessData, data])
+            props.setListMessData([...props?.listMessData, data])
         })
         reset();
     };
 
-    const dataMessFilter = listMessData.filter((mess:any) => {
+    const dataMessFilter = props?.listMessData.filter((mess:any) => {
         return (
             (mess.idUserReceive === Number(idMess) && mess.idUserSend === userSigning.current.id) ||
             (mess.idUserSend === Number(idMess) && mess.idUserReceive === userSigning.current.id)

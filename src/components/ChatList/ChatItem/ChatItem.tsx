@@ -1,9 +1,12 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import { MessageData } from '../../../models/message';
 import { User } from '../../../models/user';
+import format3Dots from '../../../utils/format3Dots';
 import './ChatItem.scss';
 
 interface UserDataProp {
-    data?: User
+    data?: User,
+    lastMess: MessageData
 }
 
 const ChatItem = (props : UserDataProp) => {
@@ -22,7 +25,7 @@ const ChatItem = (props : UserDataProp) => {
             </div>
             <div className='info__chat'>
                 <p className='name-user__chat'>{props.data?.fullName}</p>
-                <p className='first-content__chat'>Hello</p>
+                <p className='first-content__chat'>{format3Dots(props.lastMess?.content, 20)}</p>
             </div>
         </div>
     )
